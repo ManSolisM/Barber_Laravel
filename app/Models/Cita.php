@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+class Cita extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'servicio_id',
+        'fecha',
+        'hora_inicio',
+        'hora_fin',
+        'precio_estimado',
+        'precio_final',
+        'estado',
+        'nota_admin',
+        'nota_cliente',
+    ];
+
+    protected $casts = [
+        'fecha' => 'date',
+        'hora_inicio' => 'datetime:H:i',
+        'hora_fin' => 'datetime:H:i',
+        'precio_estimado' => 'decimal:2',
+        'precio_final' => 'decimal:2',
+    ];
+
+    /**
+     * Relación con usuario
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relación con servicio
+     */
+    public function servicio()
+    {
+        return $this->belongsTo(Servicio::class);
+    }
+
+    /**
+     * Scope para citas pendientes
+     */
+    public function scopePendientes($query)
+    {
+        return $query->where('estado', 'pendiente');
+    }
+
+    /**
+     * Scope para citas aceptadas
+     */
+    public function scopeAceptadas($query)
+    {
+        return $query->where('estado', 'aceptada');
+    }
+
+    /**
+     * Scope para citas futuras
+     */
+    public function scopeFuturas($query)
+    {
+        return $query->where('fecha', '>=', now()->toDateString());
+    }
+
+    /**
+     * Scope para citas pasadas
+     */
+    public function scopePasadas($query)
+    {
+        return $query->where('fecha', '<', now()->toDateString());
+    }
+
+    /**
+     * Verificar si la cita está pendiente
+     */
+    public function isPendiente(): bool
+    {
+        return $this->estado === 'pendiente';
+    }
+
+    /**
+     * Verificar si la cita está aceptada
+     */
+    public function isAceptada(): bool
+    {
+        return $this->estado === 'aceptada';
+    }
+
+    /**
+     * Obtener fecha formateada
+     */
+    public function getFechaFormateadaAttribute(): string
+    {
+        return $this->fecha->format('d/m/Y');
+    }
+
+    /**
+     * Obtener hora inicio formateada
+     */
+    public function getHoraInicioFormateadaAttribute(): string
+    {
+        return Carbon::parse($this->hora_inicio)->format('H:i');
+    }
+
+    /**
+     * Obtener hora fin formateada
+     */
+    public function getHoraFinFormateadaAttribute(): string
+    {
+        return Carbon::parse($this->hora_fin)->format('H:i');
+    }
+
+    /**
+     * Obtener badge de estado
+     */
+    public function getEstadoBadgeAttribute(): string
+    {
+        $badges = [
+            'pendiente' => 'warning',
+            'aceptada' => 'success',
+            'rechazada' => 'danger',
+            'cancelada' => 'secondary',
+        ];
+
+        return $badges[$this->estado] ?? 'secondary';
+    }
+
+    /**
+     * Obtener precio a mostrar
+     */
+    public function getPrecioMostrarAttribute(): string
+    {
+        $precio = $this->precio_final ?? $this->precio_estimado;
+        return '$' . number_format($precio, 2);
+    }
+}
