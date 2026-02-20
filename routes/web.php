@@ -23,12 +23,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Autenticación
+// Autenticación (con rate limiting en login)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])
+        ->middleware('throttle:login'); // ← AGREGADO: Rate limiting
+    
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])
+        ->middleware('throttle:10,1'); // ← AGREGADO: Rate limiting
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
@@ -38,6 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');
     Route::get('/calendario/eventos', [CalendarioController::class, 'eventos'])->name('calendario.eventos');
     Route::post('/calendario/verificar-disponibilidad', [CalendarioController::class, 'verificarDisponibilidad'])->name('calendario.verificar');
+});
+
+// ← NUEVO: API para verificar disponibilidad con AJAX
+Route::middleware(['auth', 'throttle:api'])->prefix('api')->name('api.')->group(function () {
+    Route::post('/verificar-disponibilidad', [CitaController::class, 'verificarDisponibilidadApi'])
+        ->name('verificar-disponibilidad');
 });
 
 // Rutas de Admin
@@ -60,8 +69,8 @@ Route::middleware(['auth', App\Http\Middleware\AdminMiddleware::class])->prefix(
     Route::post('/servicios/{servicio}/toggle', [AdminController::class, 'toggleServicio'])->name('servicios.toggle');
 });
 
-// Rutas de Cliente
-Route::middleware('auth')->prefix('cliente')->name('cliente.')->group(function () {
+// Rutas de Cliente (con rate limiting para citas)
+Route::middleware(['auth', 'throttle:citas'])->prefix('cliente')->name('cliente.')->group(function () {
     Route::get('/dashboard', [CitaController::class, 'dashboard'])->name('dashboard');
     
     // Citas

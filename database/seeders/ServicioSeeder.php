@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Servicio;
+use Illuminate\Database\Seeder;
 
 class ServicioSeeder extends Seeder
 {
@@ -14,74 +14,60 @@ class ServicioSeeder extends Seeder
     {
         $servicios = [
             [
-                'nombre' => 'Corte de Cabello Caballero',
-                'descripcion' => 'Corte de cabello profesional con tijera y máquina. Incluye lavado y secado.',
+                'nombre' => 'Corte Clásico',
+                'descripcion' => 'Corte tradicional con máquina y tijera',
                 'precio_base' => 150.00,
+                'duracion_minutos' => 30,
+                'activo' => true,
+            ],
+            [
+                'nombre' => 'Corte + Barba',
+                'descripcion' => 'Corte de cabello más arreglo de barba',
+                'precio_base' => 250.00,
                 'duracion_minutos' => 45,
                 'activo' => true,
             ],
             [
-                'nombre' => 'Corte de Cabello + Barba',
-                'descripcion' => 'Corte de cabello completo más arreglo de barba. Incluye lavado.',
+                'nombre' => 'Barba',
+                'descripcion' => 'Arreglo y perfilado de barba',
+                'precio_base' => 120.00,
+                'duracion_minutos' => 20,
+                'activo' => true,
+            ],
+            [
+                'nombre' => 'Fade Degradado',
+                'descripcion' => 'Corte con degradado profesional',
                 'precio_base' => 200.00,
+                'duracion_minutos' => 40,
+                'activo' => true,
+            ],
+            [
+                'nombre' => 'Rapado',
+                'descripcion' => 'Corte completo con máquina',
+                'precio_base' => 100.00,
+                'duracion_minutos' => 15,
+                'activo' => true,
+            ],
+            [
+                'nombre' => 'Corte Niño',
+                'descripcion' => 'Corte especial para niños',
+                'precio_base' => 120.00,
+                'duracion_minutos' => 25,
+                'activo' => true,
+            ],
+            [
+                'nombre' => 'Diseño Artístico',
+                'descripcion' => 'Diseños y figuras en el cabello',
+                'precio_base' => 300.00,
                 'duracion_minutos' => 60,
                 'activo' => true,
             ],
             [
-                'nombre' => 'Arreglo de Barba',
-                'descripcion' => 'Perfilado y arreglo de barba con navaja y máquina.',
+                'nombre' => 'Cejas',
+                'descripcion' => 'Perfilado y arreglo de cejas',
                 'precio_base' => 80.00,
-                'duracion_minutos' => 30,
+                'duracion_minutos' => 10,
                 'activo' => true,
-            ],
-            [
-                'nombre' => 'Rapado Completo',
-                'descripcion' => 'Rapado completo con máquina. Incluye perfilado.',
-                'precio_base' => 120.00,
-                'duracion_minutos' => 30,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Corte de Cabello Niño',
-                'descripcion' => 'Corte de cabello para niños menores de 12 años.',
-                'precio_base' => 100.00,
-                'duracion_minutos' => 30,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Tinte de Cabello',
-                'descripcion' => 'Aplicación de tinte completo. Incluye corte de cabello.',
-                'precio_base' => 350.00,
-                'duracion_minutos' => 90,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Decoloración',
-                'descripcion' => 'Decoloración completa de cabello.',
-                'precio_base' => 400.00,
-                'duracion_minutos' => 120,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Afeitado Tradicional',
-                'descripcion' => 'Afeitado completo con navaja tradicional, toallas calientes y aceites.',
-                'precio_base' => 150.00,
-                'duracion_minutos' => 45,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Diseño en Cabello',
-                'descripcion' => 'Diseño personalizado en cabello o barba.',
-                'precio_base' => 100.00,
-                'duracion_minutos' => 30,
-                'activo' => true,
-            ],
-            [
-                'nombre' => 'Permanente',
-                'descripcion' => 'Permanente completa para rizado de cabello.',
-                'precio_base' => 500.00,
-                'duracion_minutos' => 150,
-                'activo' => false, // Ejemplo de servicio inactivo
             ],
         ];
 

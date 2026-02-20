@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory, Notifiable, SoftDeletes; // AGREGAR SoftDeletes
     use HasFactory, Notifiable;
 
     /**
@@ -114,4 +116,50 @@ class User extends Authenticatable
     {
         return $query->where('tipo_cliente', 'permanente');
     }
+
+    /**
+    * Scope para clientes temporales
+    */
+    public function scopeTemporales($query)
+    {
+        return $query->where('tipo_cliente', 'temporal');
+    }
+
+    /**
+     * Scope para admins
+     */
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
+
+    /**
+    * Obtener citas futuras del usuario
+    */
+    public function citasFuturas()
+    {
+        return $this->citas()
+            ->where('fecha', '>=', now()->toDateString())
+            ->whereIn('estado', ['pendiente', 'aceptada'])
+            ->orderBy('fecha')
+            ->orderBy('hora_inicio');
+    }
+
+    /**
+     * Verificar si el usuario puede agendar más citas
+    */
+    public function puedeAgendarCita(): bool
+    {
+        if ($this->isAdmin()) {
+        return false;
+        }
+
+        // Limitar citas pendientes a 3 por cliente
+        $citasPendientes = $this->citas()
+            ->where('estado', 'pendiente')
+            ->count();
+
+        return $citasPendientes < 3;
+    }
+
 }

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Cita extends Model
 {
+    use HasFactory, SoftDeletes;
     use HasFactory;
 
     protected $fillable = [
@@ -142,4 +144,57 @@ class Cita extends Model
         $precio = $this->precio_final ?? $this->precio_estimado;
         return '$' . number_format($precio, 2);
     }
+
+    /**
+     * Scope para citas de hoy
+    */
+    public function scopeHoy($query)
+    {
+        return $query->whereDate('fecha', today());
+    }
+    
+    /**
+     * Scope para citas de esta semana
+     */
+    public function scopeEstaSemana($query)
+    {
+        return $query->whereBetween('fecha', [
+            now()->startOfWeek(),
+            now()->endOfWeek()
+        ]);
+    }
+    
+    /**
+     * Verificar si la cita ya pasó
+     */
+    public function yaOcurrio(): bool
+    {
+        $fechaHora = Carbon::parse($this->fecha . ' ' . $this->hora_fin);
+        return $fechaHora->isPast();
+    }
+    
+    /**
+     * Verificar si se puede cancelar
+     */
+    public function sePuedeCancelar(): bool
+    {
+        // Solo se puede cancelar si es pendiente y falta más de 2 horas
+        if ($this->estado !== 'pendiente') {
+            return false;
+        }
+    
+        $fechaHora = Carbon::parse($this->fecha . ' ' . $this->hora_inicio);
+        return $fechaHora->diffInHours(now()) > 2;
+    }
+    
+    /**
+     * Obtener duración en minutos
+     */
+    public function getDuracionAttribute(): int
+    {
+        $inicio = Carbon::parse($this->hora_inicio);
+        $fin = Carbon::parse($this->hora_fin);
+        return $inicio->diffInMinutes($fin);
+    }
+
 }

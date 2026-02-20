@@ -39,15 +39,76 @@
     </div>
 </div>
 @endsection
+
 @section('scripts')
 <script>
-document.getElementById('servicioSelect').addEventListener('change', function() {
+const servicioSelect = document.getElementById('servicioSelect');
+const fechaInput = document.querySelector('input[name="fecha"]');
+const horaInput = document.querySelector('input[name="hora_inicio"]');
+const precioEstimado = document.getElementById('precioEstimado');
+const precioMonto = document.getElementById('precioMonto');
+
+// Crear elemento para mostrar disponibilidad
+const availabilityDiv = document.createElement('div');
+availabilityDiv.id = 'disponibilidad-feedback';
+availabilityDiv.className = 'mt-2';
+horaInput.parentElement.appendChild(availabilityDiv);
+
+servicioSelect.addEventListener('change', function() {
     const selected = this.options[this.selectedIndex];
     const precio = selected.getAttribute('data-precio');
     if (precio) {
-        document.getElementById('precioMonto').textContent = '$' + parseFloat(precio).toFixed(2);
-        document.getElementById('precioEstimado').style.display = 'block';
+        precioMonto.textContent = '$' + parseFloat(precio).toFixed(2);
+        precioEstimado.style.display = 'block';
     }
+    verificarDisponibilidad();
 });
+
+fechaInput.addEventListener('change', verificarDisponibilidad);
+horaInput.addEventListener('change', verificarDisponibilidad);
+
+async function verificarDisponibilidad() {
+    const servicioId = servicioSelect.value;
+    const fecha = fechaInput.value;
+    const horaInicio = horaInput.value;
+
+    if (!servicioId || !fecha || !horaInicio) {
+        availabilityDiv.innerHTML = '';
+        return;
+    }
+
+    try {
+        const response = await fetch('{{ route("api.verificar-disponibilidad") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                fecha: fecha,
+                hora_inicio: horaInicio,
+                servicio_id: servicioId
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.disponible) {
+            availabilityDiv.innerHTML = `
+                <div class="alert alert-success py-2">
+                    <i class="bi bi-check-circle"></i> ${data.mensaje}
+                </div>
+            `;
+        } else {
+            availabilityDiv.innerHTML = `
+                <div class="alert alert-danger py-2">
+                    <i class="bi bi-x-circle"></i> ${data.mensaje}
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error al verificar disponibilidad:', error);
+    }
+}
 </script>
 @endsection
