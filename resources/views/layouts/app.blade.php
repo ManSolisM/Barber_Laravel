@@ -28,12 +28,15 @@
             background-color: #F8F9FA;
         }
         
-        h1,h2,h3,h4,h5,h6 {font-family:'Montserrat',sans-serif;font-weight:700}
+        h1,h2,h3,h4,h5,h6 {
+            font-family:'Montserrat',sans-serif;
+            font-weight:700;
+        }
         
         .navbar {
             background: linear-gradient(135deg,var(--jamelz-azul-profundo) 0%,var(--jamelz-verde-circuito) 100%);
             box-shadow: 0 4px 20px rgba(45,155,155,0.3);
-            padding:1rem 0
+            padding:1rem 0;
         }
         
         .navbar-brand {
@@ -45,7 +48,7 @@
             letter-spacing:2px;
             display:flex;
             align-items:center;
-            gap:0.8rem
+            gap:0.8rem;
         }
         
         .logo-container {
@@ -56,13 +59,7 @@
             display:flex;
             align-items:center;
             justify-content:center;
-            box-shadow:0 4px 12px rgba(0,0,0,0.2)
-        }
-        
-        .logo-placeholder {
-            font-size:1.8rem;
-            color:var(--jamelz-turquesa);
-            font-weight:800
+            box-shadow:0 4px 12px rgba(0,0,0,0.2);
         }
         
         .nav-link {
@@ -70,12 +67,11 @@
             font-weight:500;
             transition:all 0.3s ease;
             position:relative;
-            padding:0.5rem 1rem!important
+            padding:0.5rem 1rem!important;
         }
         
         .nav-link:hover {
             color:var(--jamelz-coral)!important;
-            transform:translateY(-2px)
         }
         
         .btn-primary {
@@ -85,33 +81,34 @@
             font-weight:600;
             padding:0.7rem 1.5rem;
             border-radius:12px;
-            box-shadow:0 4px 15px rgba(255,107,74,0.3)
+            box-shadow:0 4px 15px rgba(255,107,74,0.3);
         }
         
         .btn-primary:hover {
-            transform:translateY(-2px);
-            box-shadow:0 6px 25px rgba(255,107,74,0.5)
+            box-shadow:0 6px 25px rgba(255,107,74,0.5);
         }
         
         .btn-success {
             background:var(--jamelz-turquesa);
-            border:none
+            border:none;
         }
         
         .btn-success:hover {
-            background:var(--jamelz-verde-circuito)
+            background:var(--jamelz-verde-circuito);
         }
         
+        /* CARDS SIN ANIMACIONES MOLESTAS */
         .card {
             border:none;
             border-radius:16px;
             box-shadow:0 8px 24px rgba(0,0,0,0.08);
-            transition:all 0.3s ease
+            /* QUITAMOS LA TRANSICIÓN */
         }
         
+        /* QUITAMOS EL HOVER QUE MUEVE LAS CARDS */
         .card:hover {
-            transform:translateY(-8px);
-            box-shadow:0 12px 36px rgba(45,155,155,0.15)
+            /* NO transform */
+            /* NO box-shadow animado */
         }
         
         .card-header {
@@ -119,92 +116,103 @@
             color:white;
             border:none;
             padding:1.2rem 1.5rem;
-            font-weight:600
+            font-weight:600;
         }
         
         .stat-card {
             background:linear-gradient(135deg,var(--jamelz-turquesa) 0%,var(--jamelz-verde-circuito) 100%);
             color:white;
             border-radius:16px;
-            padding:1.5rem
+            padding:1.5rem;
         }
         
         .stat-card.warning {
-            background:linear-gradient(135deg,var(--jamelz-coral) 0%,var(--jamelz-naranja-fuego) 100%)
+            background:linear-gradient(135deg,var(--jamelz-coral) 0%,var(--jamelz-naranja-fuego) 100%);
         }
         
         .stat-card.success {
-            background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%)
+            background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);
         }
         
         .stat-card.info {
-            background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)
+            background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);
         }
         
         .badge {
             padding:0.5em 1em;
             font-weight:600;
-            border-radius:8px
+            border-radius:8px;
         }
         
         .alert {
             border-radius:12px;
             border:none;
-            box-shadow:0 4px 12px rgba(0,0,0,0.08)
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
         }
         
         .table thead {
             background:linear-gradient(145deg,var(--jamelz-turquesa) 0%,var(--jamelz-verde-circuito) 100%);
-            color:white
+            color:white;
+        }
+        
+        /* HOVER DE TABLA MÁS SUAVE */
+        .table tbody tr {
+            transition: background-color 0.2s ease;
         }
         
         .table tbody tr:hover {
-            background:rgba(45,155,155,0.05)
+            background:rgba(45,155,155,0.05);
         }
         
         footer {
             background:linear-gradient(135deg,var(--jamelz-azul-profundo) 0%,var(--jamelz-verde-circuito) 100%);
             color:white;
             padding:3rem 0;
-            margin-top:5rem
+            margin-top:5rem;
         }
         
         .modal-content {
             border-radius:16px;
-            border:none
+            border:none;
         }
         
         .modal-header {
             background:linear-gradient(145deg,var(--jamelz-turquesa) 0%,var(--jamelz-verde-circuito) 100%);
             color:white;
             border-radius:16px 16px 0 0;
-            border:none
+            border:none;
+        }
+        
+        .modal-header.bg-success {
+            background:linear-gradient(145deg,#11998e 0%,#38ef7d 100%) !important;
+        }
+
+        .modal-header.bg-danger {
+            background:linear-gradient(145deg,#dc3545 0%,#c82333 100%) !important;
+        }
+
+        .modal-header.bg-info {
+            background:linear-gradient(145deg,#4facfe 0%,#00f2fe 100%) !important;
         }
         
         .form-control,.form-select {
             border-radius:10px;
             border:2px solid #E5E7EB;
-            padding:0.7rem 1rem
+            padding:0.7rem 1rem;
         }
         
         .form-control:focus,.form-select:focus {
             border-color:var(--jamelz-turquesa);
-            box-shadow:0 0 0 0.25rem rgba(45,155,155,0.15)
+            box-shadow:0 0 0 0.25rem rgba(45,155,155,0.15);
         }
         
-        @keyframes fadeInUp {
-            from {opacity:0;transform:translateY(30px)}
-            to {opacity:1;transform:translateY(0)}
+        /* QUITAMOS ANIMACIONES INNECESARIAS */
+        .fade-in-up {
+            /* Sin animación */
         }
         
-        .fade-in-up {animation:fadeInUp 0.6s ease-out}
         .text-jamelz-turquesa {color:var(--jamelz-turquesa)}
         .text-jamelz-coral {color:var(--jamelz-coral)}
-
-        .modal-header.bg-success,
-        .modal-header.bg-danger {
-            border: none;
-        }
 
         .input-group-text {
             background-color: #e9ecef;
@@ -219,6 +227,37 @@
             margin-bottom: 0;
         }
 
+        /* Dropdown mejorado */
+        .dropdown-menu {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .dropdown-item {
+            padding: 0.7rem 1.5rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(45,155,155,0.1);
+        }
+
+        /* Navbar toggler */
+        .navbar-toggler {
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* OPTIMIZACIÓN PERFORMANCE */
+        * {
+            backface-visibility: hidden;
+        }
+
+        .table {
+            transform: translateZ(0);
+        }
     </style>
     
     @yield('styles')
@@ -233,17 +272,14 @@
                 JAMELZ
             </a>
             
-            <!-- Botón hamburguesa para móvil -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <!-- Menú navegación -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <!-- Menú Admin -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                                     <i class="bi bi-speedometer2"></i> Dashboard
@@ -265,7 +301,6 @@
                                 </a>
                             </li>
                         @else
-                            <!-- Menú Cliente -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('cliente.dashboard') }}">
                                     <i class="bi bi-house"></i> Inicio
@@ -295,12 +330,12 @@
                             @endif
                         @endif
                             
-                        <!-- Dropdown de usuario (para todos) -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle"></i> {{ auth()->user()->nombre }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li>
                                     <span class="dropdown-item-text">
                                         <small class="text-muted">{{ auth()->user()->email }}</small>
@@ -308,9 +343,9 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form method="POST" action="{{ route('logout') }}">
+                                    <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
                                         @csrf
-                                        <button type="submit" class="dropdown-item">
+                                        <button type="submit" class="dropdown-item text-danger">
                                             <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                                         </button>
                                     </form>
@@ -318,7 +353,6 @@
                             </ul>
                         </li>
                     @else
-                        <!-- Menú para invitados -->
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">
                                 <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
@@ -335,25 +369,24 @@
         </div>
     </nav>
 
-
     <main class="py-4">
         <div class="container">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show fade-in-up" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="bi bi-check-circle"></i> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show fade-in-up" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             @if($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show fade-in-up" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="bi bi-exclamation-triangle"></i>
                     <ul class="mb-0">
                         @foreach($errors->all() as $error)
@@ -382,11 +415,10 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts - SIN DUPLICADOS -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 
     @yield('scripts')
 </body>
